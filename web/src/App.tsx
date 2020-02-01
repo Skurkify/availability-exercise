@@ -1,9 +1,18 @@
 import React, { Component } from 'react';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
+
+type Props = {}
+
+type State = {
+  today: string | undefined,
+};
+
+class App extends Component<Props, State> {
+  state = {
+    today: undefined
+  };
+
+  componentDidMount() {
     this.fetchToday();
   }
 
