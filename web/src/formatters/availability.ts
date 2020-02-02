@@ -1,4 +1,4 @@
-import { Availability } from "../services/fetchAvailability";
+import { Availability } from "../services/availability";
 import sortBy from "lodash.sortby";
 import groupBy from "lodash.groupby";
 import map from "lodash.map";

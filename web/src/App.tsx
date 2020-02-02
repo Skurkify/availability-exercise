@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { fetchAvailability } from './services/fetchAvailability';
+import { fetchAvailability } from './services/availability';
 import { formatAvailabilitiesByAdvisor, AdvisorAvailability } from './formatters/availability';
 import { formatAvailabilityDateTime } from './formatters/dates';
 
