@@ -2,7 +2,7 @@ const bookingModel = require('../models/booking');
 
 module.exports.initializeBookings = function initializeBookings(app) {
 
-    app.get("/booking", async (req, res) => {
+    app.get("/bookings", async (req, res) => {
         try {
             const bookings = bookingModel.getBookings();
             res.send(bookings);
@@ -11,10 +11,9 @@ module.exports.initializeBookings = function initializeBookings(app) {
         }
     });
 
-    app.post("/booking", async (req, res) => {
+    app.post("/bookings", async (req, res) => {
         try {
             const booking = req.body;
-            console.log(booking);
             bookingModel.createBooking(booking);
             res.status(200).send();
         } catch(ex) {

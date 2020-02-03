@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const initializeAvailability = require('./routes/availability').initializeAvailability;
+const initializeAvailabilities = require('./routes/availabilities').initializeAvailabilities;
 const initializeBookings = require('./routes/bookings').initializeBookings;
 
 const app = express();
@@ -14,7 +14,7 @@ app.get("/today", (req, res) => {
     });
 });
 
-initializeAvailability(app);
+initializeAvailabilities(app);
 initializeBookings(app);
 
 function today() {

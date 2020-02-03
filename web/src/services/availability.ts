@@ -5,7 +5,7 @@ export type Availability = {
 
 export async function fetchAvailability(): Promise<Availability[]> {
     try {
-        const res = await fetch("http://localhost:4433/availability");
+        const res = await fetch("http://localhost:4433/availabilities");
         const json: Availability[] = await res.json();
         return json;
     } catch(e) {

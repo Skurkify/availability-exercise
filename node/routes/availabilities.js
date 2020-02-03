@@ -1,8 +1,8 @@
 const availabilityModel = require('../models/availability');
 
-module.exports.initializeAvailability = function initializeAvailability(app) {
+module.exports.initializeAvailabilities = function initializeAvailabilities(app) {
 
-    app.get("/availability", async (req, res) => {
+    app.get("/availabilities", async (req, res) => {
         try {
             const availabilities = await availabilityModel.getAvailabilities();
             res.send(availabilities);

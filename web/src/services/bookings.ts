@@ -6,7 +6,7 @@ export type Booking = {
 
 export async function fetchBookings(): Promise<Booking[]> {
     try {
-        const res = await fetch("http://localhost:4433/booking");
+        const res = await fetch("http://localhost:4433/bookings");
         const json: Booking[] = await res.json();
         return json;
     } catch(e) {
@@ -17,7 +17,7 @@ export async function fetchBookings(): Promise<Booking[]> {
 
 export async function createBooking(booking: Booking): Promise<void> {
     try {
-        await fetch("http://localhost:4433/booking", {
+        await fetch("http://localhost:4433/bookings", {
             method: 'post',
             body: JSON.stringify(booking),
             headers: {
