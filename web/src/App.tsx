@@ -1,24 +1,30 @@
 import React, { Component } from 'react';
-import { fetchAvailability } from './services/availability';
+import { fetchAvailability, Availability } from './services/availability';
 import { formatAvailabilitiesByAdvisor, AdvisorAvailability } from './formatters/availability';
 import { formatAvailabilityDateTime } from './formatters/dates';
+import { Booking, fetchBookings, createBooking } from './services/bookings';
 
 type Props = {}
 
 type State = {
   today: string | undefined,
-  availabilityByAdvisor: AdvisorAvailability[]
+  availabilityByAdvisor: AdvisorAvailability[],
+  bookings: Booking[],
+  name: string
 };
 
 class App extends Component<Props, State> {
   state: State = {
     today: undefined,
-    availabilityByAdvisor: []
+    availabilityByAdvisor: [],
+    bookings: [],
+    name: "",
   };
 
   componentDidMount() {
     this.fetchToday();
     this.fetchAvailability();
+    this.fetchBookings();
   }
 
   async fetchAvailability() {
@@ -26,6 +32,13 @@ class App extends Component<Props, State> {
     const availabilityByAdvisor = formatAvailabilitiesByAdvisor(availability);
     this.setState({
       availabilityByAdvisor
+    })
+  }
+
+  async fetchBookings() {
+    const bookings = await fetchBookings();
+    this.setState({
+      bookings
     })
   }
 
@@ -39,6 +52,26 @@ class App extends Component<Props, State> {
     }
   }
 
+  createBooking = async (availability: Availability) => {
+    const {name} = this.state;
+
+    if (!name) {
+      alert("Please Enter your name before booking");
+    }
+
+    try {
+      await createBooking({
+        studentName: name,
+        advisorId: availability.advisorId,
+        dateTime: availability.dateTime
+      });
+      this.fetchAvailability();
+      this.fetchBookings();
+    } catch (e) {
+      alert("Failed to create booking");
+    }
+  }
+
   render() {
     return (
       <div className="App container">
@@ -49,7 +82,17 @@ class App extends Component<Props, State> {
         <form id="name-form" className="col-md-6">
           <div className="form-group">
             <label htmlFor="name-field">Your Name</label>
-            <input type="text" id="name-field" className="form-control" />
+            <input
+              type="text"
+              id="name-field"
+              className="form-control"
+              value={this.state.name}
+              onChange ={(event) => {
+                this.setState({
+                  name: event.currentTarget.value
+                })
+              }}
+            />
           </div>
         </form>
 
@@ -72,7 +115,12 @@ class App extends Component<Props, State> {
                         return (
                           <li key={availability.dateTime}>
                             <time dateTime={availability.dateTime} className="book-time">{formatAvailabilityDateTime(availability.dateTime)}</time>
-                            <button className="book btn-small btn-primary">Book</button>
+                            <button
+                              className="book btn-small btn-primary"
+                              onClick={() => {
+                                this.createBooking(availability);
+                              }}
+                            >Book</button>
                           </li>
                         )
                       })}
@@ -94,13 +142,19 @@ class App extends Component<Props, State> {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>36232</td>
-              <td>John Smith</td>
-              <td>
-                <time dateTime="2019-04-03T10:00:00-04:00">4/3/2019 10:00 am</time>
-              </td>
-            </tr>
+            {
+              this.state.bookings.map((booking) => {
+                return (
+                  <tr key={booking.advisorId+booking.dateTime}>
+                    <td>{booking.advisorId}</td>
+                    <td>{booking.studentName}</td>
+                    <td>
+                      <time dateTime={booking.dateTime}>{formatAvailabilityDateTime(booking.dateTime)}</time>
+                    </td>
+                  </tr>
+                )
+              })
+            }
           </tbody>
         </table>
       </div>
