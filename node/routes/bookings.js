@@ -18,7 +18,7 @@ module.exports.initializeBookings = function initializeBookings(app) {
             bookingModel.createBooking(booking);
             res.status(200).send();
         } catch(ex) {
-            res.status(500).send(ex)
+            res.status(400).send(ex.message)
         }
     });
 

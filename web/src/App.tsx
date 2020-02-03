@@ -57,6 +57,7 @@ class App extends Component<Props, State> {
 
     if (!name) {
       alert("Please Enter your name before booking");
+      return;
     }
 
     try {
