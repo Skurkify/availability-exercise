@@ -22,8 +22,3 @@ module.exports.initializeBookings = function initializeBookings(app) {
     });
 
 }
-/*
-    todo:
-    1. Create controllers for data acess
-    2. Make endpoints pure
-*/
