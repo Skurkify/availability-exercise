@@ -3,9 +3,23 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@types/jest": "^25.1.1",
+    "@types/lodash.groupby": "^4.6.6",
+    "@types/lodash.map": "^4.6.13",
+    "@types/lodash.reduce": "^4.6.6",
+    "@types/lodash.sortby": "^4.7.6",
+    "@types/node": "^13.7.0",
+    "@types/react": "^16.9.19",
+    "@types/react-dom": "^16.9.5",
+    "lodash.groupby": "^4.6.0",
+    "lodash.map": "^4.6.0",
+    "lodash.reduce": "^4.6.0",
+    "lodash.sortby": "^4.7.0",
+    "moment": "^2.24.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-scripts": "3.0.1"
+    "react-scripts": "3.0.1",
+    "typescript": "^3.7.5"
   },
   "scripts": {
     "start": "react-scripts start",

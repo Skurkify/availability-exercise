@@ -1,6 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const initializeAvailabilities = require('./routes/availabilities').initializeAvailabilities;
+const initializeBookings = require('./routes/bookings').initializeBookings;
 
 const app = express();
 app.use(cors());
@@ -11,6 +13,9 @@ app.get("/today", (req, res) => {
         today: today()
     });
 });
+
+initializeAvailabilities(app);
+initializeBookings(app);
 
 function today() {
     return new Date().toLocaleDateString();
